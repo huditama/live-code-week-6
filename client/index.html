@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <title>Classic Fox - First Live Code</title>
+</head>
+
+<body>
+  <!-- VUE START -->
+  <div id="app">
+    <div>
+      <!-- UPPER BOUNDARY -->
+      <!-- NAVBAR -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+          <a class="navbar-brand" href="/">Dad Jokes</a>
+          <a href="#" class="text-danger" v-if="isLoggedIn" v-on:click="signOut">Logout</a>
+        </div>
+      </nav>
+      <!-- NAVBAR END -->
+      <!-- Login -->
+      <div class="row justify-content-center" v-if="!isLoggedIn">
+        <div class="col-4">
+          <div class="card mb-4">
+            <div class="card-header text-center">Login</div>
+            <div class="card-body">
+              <form method="post" v-on:submit.prevent="signIn">
+                <div class="form-group">
+                  <label for="email">Email address</label>
+                  <input v-model="login.email" type="email" class="form-control" id="email" aria-describedby="emailHelp"
+                    placeholder="Enter email">
+                  <small id="emailHelp" class="form-text text-muted">
+                    We'll never share your email with anyone else.
+                  </small>
+                </div>
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <input v-model="login.password" type="password" class="form-control" id="password"
+                    placeholder="Password">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- LOGIN END -->
+      <div class="container my-4" v-else>
+        <!-- JOKE JUMBOTRON -->
+        <div class="jumbotron">
+          <div class="container">
+            <h1 class="display-4">{{currentJoke}}</h1>
+            <hr class="my-4">
+            <p>Do you like this joke?</p>
+            <a v-on:click="addToFavorites" class="btn btn-success" href="#" role="button">Yes, add this to My
+              Favorites</a>
+            <a v-on:click="getJoke" class="btn btn-danger" href="#" role="button">No, generate new joke</a>
+          </div>
+        </div>
+        <!-- JOKE JUMBOTRON END -->
+        <!-- FAVORITES -->
+        <div class="container">
+          <h1 class="text-center">My Favorites</h1>
+          <hr class="my-4">
+          <h3 v-if="!favorites.length"> NO FAVORITES</h3>
+          <div class="row">
+            <div v-for="(joke, index) in favorites" :key="index" class="col-lg-4 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <p class="card-text">{{joke.joke}}</p>
+                  <a v-on:click="deleteFavorites(joke._id)" href="#" class="card-link text-danger">Remove</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- END OF FAVORITES -->
+      </div>
+    </div>
+    <!-- LOWER BOUNDARY -->
+  </div>
+  <!-- VUE END -->
+
+  <!-- VUE -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+
+  <!-- SWAL -->
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+  <!-- AXIOS -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <!-- JAVASCRIPT -->
+  <script src="./js/main.js"></script>
+
+</body>
+
+</html>
